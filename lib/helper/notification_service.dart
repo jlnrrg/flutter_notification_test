@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,7 +35,10 @@ class NotificationService {
 
   Future<void> showNotification(
       [Future<dynamic> Function(String?)? callback]) async {
-    await initializePlugin(callback);
+    await initializePlugin((_) async {
+      debugPrint('Callback started');
+      await callback?.call('');
+    });
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
             'your channel id', 'your channel name', 'your channel description',
