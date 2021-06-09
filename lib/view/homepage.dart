@@ -16,10 +16,13 @@ class HomePage extends StatelessWidget {
         children: [
           FloatingActionButton(
               heroTag: 'notif',
-              onPressed: () => context
-                  .read(notificationServiceProvider)
-                  .showNotification(
-                      (_) => AutoRouter.of(context).push(SecondPageRoute())),
+              onPressed: () async {
+                await Future.delayed(Duration(seconds: 2));
+                await context
+                    .read(notificationServiceProvider)
+                    .showNotification(
+                        (_) => AutoRouter.of(context).push(SecondPageRoute()));
+              },
               child: Icon(Icons.exit_to_app)),
           FloatingActionButton(
               heroTag: 'push',
